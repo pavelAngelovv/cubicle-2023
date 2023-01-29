@@ -1,18 +1,14 @@
 const express = require('express')
-const app = express()
-const setupViewEngine = require('./config/viewEngine')
+
 const config = require('./config')
+const routes = require('./routes')
+const setupViewEngine = require('./config/viewEngine')
+
+const app = express()
 setupViewEngine(app)
 
 app.use(express.static('src/public'))
-
-app.get('/', (req, res) => {
-    res.render('home', {layout: false})
-})
-
-app.get('/', (req, res) => {
-    res.render('home', {layout: false})
-})
+app.use(routes)
 
 app.listen(config.PORT, () => {
     console.log(`Server is running on port ${config.PORT}...`);
